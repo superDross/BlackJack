@@ -1,7 +1,21 @@
 const inquirer = require('inquirer');
 
-function getPlayerMove() {
+function getPlayerMove(min, max) {
   const questions = [
+    {
+      type: 'input',
+      name: 'quantity',
+      message: 'How much do you want to bet?',
+      validate(value) {
+        if (isNaN(parseFloat(value))) {
+          return 'Please enter a number';
+        } if (min > Number(value) || Number(value) > max) {
+          return `$${value} is out of the betting range $${min} - $${max}`;
+        }
+        return true;
+      },
+      filter: Number,
+    },
     {
       type: 'list',
       name: 'command',
@@ -16,10 +30,13 @@ function getPlayerMove() {
   return inquirer.prompt(questions).then(answers => answers);
 }
 
-// async retrivePlayerMove f() {
-//   const answer = await getPlayerMove()
-//   return answer
+// async function retrivePlayerMove() {
+//   console.log('CARDS');
+//   const answer = await getPlayerMove(10, 100);
+//   return answer;
 // }
+// 
+// retrivePlayerMove();
 
 module.exports = {
   getPlayerMove,
