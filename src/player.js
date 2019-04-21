@@ -3,7 +3,7 @@ const { sum } = require('./utils');
 
 
 class Character {
-  constructor(money) {
+  constructor(money = 1000) {
     this.hand = [];
     this.money = money;
   }
@@ -53,10 +53,6 @@ class Dealer extends Character {
 
   deal(player) {
     player.hand.push(this.deck.takeCard());
-  }
-
-  seeHand() {
-    return super.seeHand(this.hand.length - 1);
   }
 }
 
