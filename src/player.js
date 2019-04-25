@@ -51,8 +51,12 @@ class Dealer extends Character {
     this.deck = new Deck();
   }
 
-  deal(player) {
-    player.hand.push(this.deck.takeCard());
+  deal(player, num = 1) {
+    let n = 0;
+    while (n < num) {
+      player.hand.push(this.deck.takeCard());
+      n++
+    }
   }
 }
 

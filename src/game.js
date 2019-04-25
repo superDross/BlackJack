@@ -26,11 +26,9 @@ class BlackJack {
     }
   }
 
-  firstDeal() {
-    this.dealer.deal(this.dealer);
-    this.dealer.deal(this.dealer);
-    this.dealer.deal(this.player);
-    this.dealer.deal(this.player);
+  dealCards(num = 1) {
+    this.dealer.deal(this.dealer, num);
+    this.dealer.deal(this.player, num);
   }
 
   async play() {
