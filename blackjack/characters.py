@@ -1,24 +1,22 @@
-from cards import Deck
+from typing import List, Tuple, Union
+
+from cards import Card, Deck
 
 
-class Character(object):
-    """ Base class for the dealer and player.
-
-    Attributes:
-        hand (list: Card): list of cards.
-        money (int): number of dollars.
+class Character:
+    """
+    Base class for the dealer and player
     """
 
-    def __init__(self, money=1000):
-        self.hand = []
+    def __init__(self, money: Union[int, float] = 1000) -> None:
+        self.hand: List[Card] = []
         self.money = money
 
     @property
-    def card_count(self):
-        """ Counts total value of all card numbers.
-
-        Returns:
-            best possible value from character hand.
+    def card_count(self) -> int:
+        """
+        Counts total value of all card numbers and returns the
+        best possible value from character hand
         """
         counter1 = 0
         # counter 2 for alternative ace
@@ -35,11 +33,8 @@ class Character(object):
         else:
             return max(x for x in (counter1, counter2))
 
-    def _card2int(self, card):
+    def _card2int(self, card: Card) -> Tuple[int, int]:
         """ Counts the value of the given card number.
-
-        Args:
-            card (Card): card object.
 
         Returns:
             A tuple of integers where the first
@@ -55,38 +50,33 @@ class Character(object):
         else:
             return (int(card.number), int(card.number))
 
-    def str_hand(self):
-        """ Returns a string representation of all cards in hand."""
+    def str_hand(self) -> str:
+        """
+        Returns a string representation of all cards in hand
+        """
         hand = ["{}.{}".format(card.number, card.suit) for card in self.hand]
         return " ".join(hand)
 
 
 class Dealer(Character):
-    """ Card dealer.
-
-    Attributes:
-        deck (Deck): 52 card pack.
-        hand (list: Card): list of all cards in delaers hand.
-        money (int): number of dollars.
+    """
+    Card dealer
     """
 
-    def __init__(self):
-        self.deck = Deck()
+    def __init__(self) -> None:
+        self.deck: Deck = Deck()
         Character.__init__(self, 1000000)
 
-    def deal(self, player):
-        """ Take a card from the deck and place it to
-            the given players hand attribute.
-
-        Args:
-            player (Character): object to give card to.
+    def deal(self, player: Character) -> None:
+        """
+        Take a card from the deck and place it to the given players hand attribute
         """
         player.hand.append(self.deck.take_card())
 
-    def str_hand(self, show_hidden=False):
-        """ Returns a string representation of all cards in hand
-            except the face-down card.
-        ."""
+    def str_hand(self, show_hidden: bool = False) -> str:
+        """
+        Returns a string representation of all cards in hand except the face-down card
+        """
         index = 0 if show_hidden else 1
         hand = ["{}.{}".format(card.number, card.suit) for card in self.hand[index:]]
         return " ".join(hand)

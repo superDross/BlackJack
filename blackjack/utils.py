@@ -3,16 +3,16 @@ import sys
 import time
 
 
-def sleep():
-    time.sleep(2)
+def sleep(secs: int = 2) -> None:
+    time.sleep(secs)
 
 
-def clear():
+def clear() -> None:
     """ Platform agnostic way to clear screen."""
     os.system("cls" if os.name == "nt" else "clear")
 
 
-def flush_input():
+def flush_input() -> None:
     """ Platform agnostic way to clear key input."""
     if os.name == "nt":
         import msvcrt
